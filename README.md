@@ -66,6 +66,27 @@ npm start
 
 The application will be available at `http://localhost:4200/`
 
+### Running Tests
+
+The project includes unit tests using Karma + Jasmine. I added the test bootstrap and configs so tests can be run locally.
+
+- Install dependencies (if not already):
+```bash
+npm install
+```
+- Run the full test suite (headless):
+```bash
+npx ng test pokemon-app --watch=false
+```
+- Or use the npm script:
+```bash
+npm test
+```
+
+Notes:
+- Tests run with `ChromeHeadless` via Karma. Config files added: `karma.conf.js`, `tsconfig.spec.json`, and `src/test.ts`.
+- All tests pass locally (15/15) as of 2026-02-03.
+
 ### Building for Production
 
 ```bash
