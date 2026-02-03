@@ -113,4 +113,14 @@ export class LandingComponent implements OnInit {
     this.maxSpeed = 150;
     this.applyFilters();
   }
+
+  // Comparison helpers used by template
+  toggleCompare(ev: Event, id: number): void {
+    ev.stopPropagation();
+    this.pokemonService.toggleCompare(id);
+  }
+
+  isSelectedForCompare(id: number): boolean {
+    return this.pokemonService.getSelectedForCompare().includes(id);
+  }
 }

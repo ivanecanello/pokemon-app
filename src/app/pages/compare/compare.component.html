@@ -1,0 +1,31 @@
+<div class="compare-container">
+  <h1>Pokémon Comparison</h1>
+
+  <div *ngIf="selected.length === 0" class="empty">
+    <p>No Pokémon selected for comparison. Go to the list and click "Compare" on Pokémon cards.</p>
+  </div>
+
+  <div *ngIf="selected.length > 0" class="compare-grid">
+    <div *ngFor="let p of selected" class="compare-card">
+      <img [src]="p.imageUrl" [alt]="p.name" />
+      <h2>{{ p.name }}</h2>
+      <p class="id">#{{ p.id }}</p>
+      <p class="types">
+        <span *ngFor="let t of p.type" class="type">{{ t }}</span>
+      </p>
+      <ul class="stats">
+        <li>HP: {{ p.hp }}</li>
+        <li>Attack: {{ p.attack }}</li>
+        <li>Defense: {{ p.defense }}</li>
+        <li>Sp. Atk: {{ p.spAtk }}</li>
+        <li>Sp. Def: {{ p.spDef }}</li>
+        <li>Speed: {{ p.speed }}</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button routerLink="/">Back to list</button>
+    <button (click)="clearComparison()">Clear Comparison</button>
+  </div>
+</div>

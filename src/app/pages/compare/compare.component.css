@@ -1,0 +1,7 @@
+.compare-container { padding: 16px; }
+.compare-grid { display: flex; gap: 16px; flex-wrap: wrap; }
+.compare-card { border: 1px solid #ddd; padding: 12px; width: 260px; border-radius: 8px; text-align: center; }
+.compare-card img { width: 120px; height: 120px; object-fit: contain; }
+.stats { text-align: left; list-style: none; padding: 0; }
+.actions { margin-top: 16px; display: flex; gap: 8px; }
+.type { margin-right: 6px; padding: 4px 8px; background: #eee; border-radius: 4px; }

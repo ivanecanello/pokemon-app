@@ -9,6 +9,7 @@ import { POKEMON_DATA } from '../constants/pokemon.constants';
 })
 export class PokemonService {
   private pokemonData: Pokemon[] = POKEMON_DATA;
+  private selectedForCompare: number[] = [];
 
   constructor() { }
 
@@ -39,5 +40,34 @@ export class PokemonService {
         })
       )
     );
+  }
+
+  /**
+   * Comparison selection helpers
+   */
+  addToCompare(id: number): void {
+    if (!this.selectedForCompare.includes(id)) {
+      this.selectedForCompare.push(id);
+    }
+  }
+
+  removeFromCompare(id: number): void {
+    this.selectedForCompare = this.selectedForCompare.filter(i => i !== id);
+  }
+
+  toggleCompare(id: number): void {
+    if (this.selectedForCompare.includes(id)) {
+      this.removeFromCompare(id);
+    } else {
+      this.addToCompare(id);
+    }
+  }
+
+  getSelectedForCompare(): number[] {
+    return [...this.selectedForCompare];
+  }
+
+  clearCompare(): void {
+    this.selectedForCompare = [];
   }
 }

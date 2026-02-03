@@ -72,6 +72,9 @@
         [routerLink]="['/pokemon', poke.id]">
         <img [src]="poke.imageUrl" [alt]="poke.name" class="pokemon-image">
         <h3>{{ poke.name }}</h3>
+        <button class="compare-btn" (click)="toggleCompare($event, poke.id)">
+          {{ isSelectedForCompare(poke.id) ? '✓ Comparing' : 'Compare' }}
+        </button>
         <p class="pokemon-types">
           <span *ngFor="let type of poke.type" class="type-badge" [ngClass]="'type-' + type.toLowerCase()">
             {{ type }}
