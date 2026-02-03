@@ -21,20 +21,29 @@ A modern Angular application showcasing a Pokédex with filtering and detailed P
 pokemon-app/
 ├── src/
 │   ├── app/
-│   │   ├── models/          # TypeScript interfaces
-│   │   ├── services/        # Business logic and data services
-│   │   ├── pages/           # Page components
-│   │   │   ├── landing/     # Main listing page
-│   │   │   └── detail/      # Detail page
-│   │   ├── app.routes.ts    # Route configuration
-│   │   ├── app.component.ts # Root component
+│   │   ├── models/               # TypeScript interfaces
+│   │   ├── services/             # Business logic and data services
+│   │   ├── constants/            # App constants (mock data)
+│   │   ├── pages/                # Page components
+│   │   │   ├── landing/          # Main listing page (+ landing.component.spec.ts)
+│   │   │   └── detail/           # Detail page (+ detail.component.spec.ts)
+│   │   ├── components/           # Reusable UI components
+│   │   ├── app.routes.ts         # Route configuration
+│   │   ├── app.component.ts      # Root component
 │   │   └── app.component.html
-│   ├── main.ts              # Bootstrap file
-│   ├── index.html           # HTML entry point
-│   └── styles.css           # Global styles
+│   ├── test.ts                  # Angular test bootstrap (src/test.ts)
+│   ├── main.ts                   # Bootstrap file
+│   ├── index.html                # HTML entry point
+│   └── styles.css                # Global styles
+├── karma.conf.js                 # Karma test runner config
+├── tsconfig.spec.json            # TypeScript config for tests
 ├── package.json
 ├── tsconfig.json
-└── angular.json
+├── angular.json
+└── README.md
+
+Notes:
+- Unit tests live alongside components/services in `.spec.ts` files (e.g. `src/app/services/pokemon.service.spec.ts`).
 ```
 
 ## Getting Started
