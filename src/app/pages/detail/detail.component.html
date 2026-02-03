@@ -1,0 +1,116 @@
+<div class="detail-container" *ngIf="!isLoading; else loading">
+  <button class="back-btn" (click)="goBack()">← Back</button>
+
+  <div *ngIf="pokemon" class="pokemon-detail">
+    <div class="detail-header">
+      <img [src]="pokemon.imageUrl" [alt]="pokemon.name" class="pokemon-image">
+      <div class="header-info">
+        <h1>{{ pokemon.name }}</h1>
+        <p class="pokemon-id">#{{ pokemon.id }}</p>
+        <div class="pokemon-types">
+          <span *ngFor="let type of pokemon.type" class="type-badge" [ngClass]="'type-' + type.toLowerCase()">
+            {{ type }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="description-section">
+      <h2>Description</h2>
+      <p>{{ pokemon.description }}</p>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-card">
+        <span class="info-label">Height</span>
+        <span class="info-value">{{ pokemon.height }} dm</span>
+      </div>
+      <div class="info-card">
+        <span class="info-label">Weight</span>
+        <span class="info-value">{{ pokemon.weight }} hg</span>
+      </div>
+    </div>
+
+    <div class="stats-section">
+      <h2>Stats</h2>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-header">
+            <span class="stat-name">HP</span>
+            <span class="stat-value">{{ pokemon.hp }}</span>
+          </div>
+          <div class="stat-bar">
+            <div class="stat-fill" [style.width.%]="(pokemon.hp / 150) * 100" [style.background-color]="getStatColor(pokemon.hp)"></div>
+          </div>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-header">
+            <span class="stat-name">Attack</span>
+            <span class="stat-value">{{ pokemon.attack }}</span>
+          </div>
+          <div class="stat-bar">
+            <div class="stat-fill" [style.width.%]="(pokemon.attack / 150) * 100" [style.background-color]="getStatColor(pokemon.attack)"></div>
+          </div>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-header">
+            <span class="stat-name">Defense</span>
+            <span class="stat-value">{{ pokemon.defense }}</span>
+          </div>
+          <div class="stat-bar">
+            <div class="stat-fill" [style.width.%]="(pokemon.defense / 150) * 100" [style.background-color]="getStatColor(pokemon.defense)"></div>
+          </div>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-header">
+            <span class="stat-name">Sp. Atk</span>
+            <span class="stat-value">{{ pokemon.spAtk }}</span>
+          </div>
+          <div class="stat-bar">
+            <div class="stat-fill" [style.width.%]="(pokemon.spAtk / 150) * 100" [style.background-color]="getStatColor(pokemon.spAtk)"></div>
+          </div>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-header">
+            <span class="stat-name">Sp. Def</span>
+            <span class="stat-value">{{ pokemon.spDef }}</span>
+          </div>
+          <div class="stat-bar">
+            <div class="stat-fill" [style.width.%]="(pokemon.spDef / 150) * 100" [style.background-color]="getStatColor(pokemon.spDef)"></div>
+          </div>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-header">
+            <span class="stat-name">Speed</span>
+            <span class="stat-value">{{ pokemon.speed }}</span>
+          </div>
+          <div class="stat-bar">
+            <div class="stat-fill" [style.width.%]="(pokemon.speed / 150) * 100" [style.background-color]="getStatColor(pokemon.speed)"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="total-stats">
+        <span class="total-label">Total</span>
+        <span class="total-value">{{ getTotalStats() }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!pokemon" class="not-found">
+    <h2>Pokémon not found</h2>
+    <p>The requested Pokémon does not exist in our database.</p>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="loading">
+    <div class="spinner"></div>
+    <p>Loading...</p>
+  </div>
+</ng-template>
