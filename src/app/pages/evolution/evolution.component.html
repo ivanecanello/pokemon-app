@@ -1,0 +1,10 @@
+<div class="evolution-container" *ngIf="chain?.length > 0">
+  <h3>Evolution Chain</h3>
+  <div class="evolution-grid">
+    <div *ngFor="let p of chain" class="evolution-card">
+      <img [src]="p.imageUrl" [alt]="p.name" />
+      <div class="evo-name">{{ p.name }}</div>
+      <div class="evo-id">#{{ p.id }}</div>
+    </div>
+  </div>
+</div>

@@ -2267,3 +2267,14 @@ export const POKEMON_DATA: Pokemon[] = [
     speed: 100
   }
 ];
+
+// Simple evolution chains for Generation 1 sample data
+export const EVOLUTION_CHAINS: Record<number, number[]> = {
+  1: [1,2,3],
+  4: [4,5,6],
+  7: [7,8,9],
+  10: [10,11,12],
+  13: [13,14,15],
+  17: [17,18],
+  25: [25,26]
+};

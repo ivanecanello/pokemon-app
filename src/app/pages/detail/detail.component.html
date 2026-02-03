@@ -100,6 +100,9 @@
         <span class="total-value">{{ getTotalStats() }}</span>
       </div>
     </div>
+    
+    <!-- Evolution Chain -->
+    <app-evolution [pokemonId]="pokemon?.id"></app-evolution>
   </div>
 
   <div *ngIf="!pokemon" class="not-found">

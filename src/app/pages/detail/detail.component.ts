@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Location } from '@angular/common';
+import { EvolutionComponent } from '../evolution/evolution.component';
 import { Pokemon } from '../../models/pokemon.model';
 import { PokemonService } from '../../services/pokemon.service';
 
@@ -10,7 +11,8 @@ import { PokemonService } from '../../services/pokemon.service';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './detail.component.html',
-  styleUrl: './detail.component.css'
+  styleUrl: './detail.component.css',
+  imports: [EvolutionComponent]
 })
 export class DetailComponent implements OnInit {
   pokemon: Pokemon | undefined;

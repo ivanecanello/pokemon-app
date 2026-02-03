@@ -3,6 +3,7 @@ import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Pokemon } from '../models/pokemon.model';
 import { POKEMON_DATA } from '../constants/pokemon.constants';
+import { EVOLUTION_CHAINS } from '../constants/pokemon.constants';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,17 @@ export class PokemonService {
    */
   getPokemonById(id: number): Observable<Pokemon | undefined> {
     return of(this.pokemonData.find(p => p.id === id));
+  }
+
+  /**
+   * Return evolution chain for a given pokemon id (full chain of related ids).
+   */
+  getEvolutionChain(id: number): Observable<Pokemon[]> {
+    // find a chain that contains the id
+    const chainEntry = Object.values(EVOLUTION_CHAINS).find(chain => chain.includes(id));
+    if (!chainEntry) return of([]);
+    const chainPokemons = chainEntry.map(i => this.pokemonData.find(p => p.id === i)).filter(Boolean) as Pokemon[];
+    return of(chainPokemons);
   }
 
   /**
