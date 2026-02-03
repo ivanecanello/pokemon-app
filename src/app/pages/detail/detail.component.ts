@@ -9,10 +9,9 @@ import { PokemonService } from '../../services/pokemon.service';
 @Component({
   selector: 'app-detail',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, EvolutionComponent],
   templateUrl: './detail.component.html',
-  styleUrl: './detail.component.css',
-  imports: [EvolutionComponent]
+  styleUrls: ['./detail.component.css'],
 })
 export class DetailComponent implements OnInit {
   pokemon: Pokemon | undefined;
