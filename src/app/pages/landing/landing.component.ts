@@ -123,4 +123,8 @@ export class LandingComponent implements OnInit {
   isSelectedForCompare(id: number): boolean {
     return this.pokemonService.getSelectedForCompare().includes(id);
   }
+
+  getCompareCount(): number {
+    return this.pokemonService.getSelectedForCompare().length;
+  }
 }

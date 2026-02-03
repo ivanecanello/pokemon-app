@@ -177,6 +177,45 @@
   font-weight: 600;
 }
 
+/* Compare button on each card */
+.compare-btn {
+  display: inline-block;
+  margin: 8px 0;
+  padding: 8px 12px;
+  background: #fff;
+  color: #667eea;
+  border: 2px solid #667eea;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.compare-btn:hover {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* Floating compare panel */
+.compare-panel {
+  position: fixed;
+  right: 20px;
+  bottom: 80px;
+  background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+  color: #333;
+  padding: 10px 14px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  z-index: 2000;
+}
+
+.compare-panel a {
+  color: inherit;
+  text-decoration: none;
+  font-weight: 700;
+}
+
 .pokemon-id {
   color: #999;
   font-size: 0.85rem;

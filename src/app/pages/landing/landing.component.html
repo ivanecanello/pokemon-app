@@ -4,6 +4,10 @@
     <p class="subtitle">Discover and explore Pokémon from Generation 1</p>
   </div>
 
+  <div class="compare-panel">
+    <a routerLink="/compare">Compare ({{ getCompareCount() }})</a>
+  </div>
+
   <div class="filters-section">
     <h2>🔍 Filters</h2>
     <div class="filters-grid">
@@ -72,7 +76,7 @@
         [routerLink]="['/pokemon', poke.id]">
         <img [src]="poke.imageUrl" [alt]="poke.name" class="pokemon-image">
         <h3>{{ poke.name }}</h3>
-        <button class="compare-btn" (click)="toggleCompare($event, poke.id)">
+        <button type="button" class="compare-btn" (click)="toggleCompare($event, poke.id)">
           {{ isSelectedForCompare(poke.id) ? '✓ Comparing' : 'Compare' }}
         </button>
         <p class="pokemon-types">
