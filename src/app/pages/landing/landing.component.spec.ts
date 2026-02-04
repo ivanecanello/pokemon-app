@@ -28,6 +28,9 @@ describe('LandingComponent', () => {
         });
         return of(filtered);
       }
+      ,
+      getSelectedForCompare: () => [],
+      toggleCompare: (id: number) => {}
     };
 
     await TestBed.configureTestingModule({
@@ -69,7 +72,7 @@ describe('LandingComponent', () => {
   it('should paginate results and navigate pages', () => {
     component.itemsPerPage = 1;
     component.applyFilters();
-    expect(component.totalPages).toBeGreaterThanOrEqual(2);
+    expect(component.totalPages).toBeGreaterThan(1);
     const firstPage = component.paginatedPokemon.slice();
     component.goToPage(2);
     expect(component.currentPage).toBe(2);

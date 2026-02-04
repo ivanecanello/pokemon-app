@@ -14,6 +14,8 @@ describe('DetailComponent', () => {
   beforeEach(async () => {
     const mockService = {
       getPokemonById: (id: number) => of(id === 1 ? mockPokemon : undefined)
+      ,
+      getEvolutionChain: (id: number) => of([])
     };
 
     const mockRoute = {
