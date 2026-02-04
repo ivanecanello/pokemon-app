@@ -64,10 +64,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "pokemon-app:build:production"
+              "buildTarget": "pokemon-app:build:production"
             },
             "development": {
-              "browserTarget": "pokemon-app:build:development"
+              "buildTarget": "pokemon-app:build:development"
             }
           },
           "defaultConfiguration": "development"
