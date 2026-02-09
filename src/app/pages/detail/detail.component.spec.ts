@@ -4,17 +4,18 @@ import { DetailComponent } from './detail.component';
 import { PokemonService } from '../../services/pokemon.service';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { DetailFacade } from './detail.facade';
 
 describe('DetailComponent', () => {
   let component: DetailComponent;
   let fixture: ComponentFixture<DetailComponent>;
+  let facade: DetailFacade;
 
   const mockPokemon = { id: 1, name: 'Bulbasaur', type: ['Grass'], height: 7, weight: 69, description: '', imageUrl: '', hp: 45, attack: 49, defense: 49, spAtk: 65, spDef: 65, speed: 45 } as any;
 
   beforeEach(async () => {
     const mockService = {
-      getPokemonById: (id: number) => of(id === 1 ? mockPokemon : undefined)
-      ,
+      getPokemonById: (id: number) => of(id === 1 ? mockPokemon : undefined),
       getEvolutionChain: (id: number) => of([])
     };
 
@@ -35,6 +36,7 @@ describe('DetailComponent', () => {
 
     fixture = TestBed.createComponent(DetailComponent);
     component = fixture.componentInstance;
+    facade = fixture.debugElement.injector.get(DetailFacade);
     fixture.detectChanges();
   });
 
@@ -42,7 +44,7 @@ describe('DetailComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should load pokemon and compute total stats', async () => {
+  it('should load pokemon and compute total stats via facade', async () => {
     // Wait for resource to load
     await fixture.whenStable();
     fixture.detectChanges();
@@ -52,7 +54,7 @@ describe('DetailComponent', () => {
     expect(total).toBe(mockPokemon.hp + mockPokemon.attack + mockPokemon.defense + mockPokemon.spAtk + mockPokemon.spDef + mockPokemon.speed);
   });
 
-  it('getStatColor returns expected colors', () => {
+  it('getStatColor returns expected colors from facade', () => {
     expect(component.getStatColor(110)).toBe('#27ae60');
     expect(component.getStatColor(85)).toBe('#f39c12');
     expect(component.getStatColor(65)).toBe('#3498db');
@@ -60,7 +62,7 @@ describe('DetailComponent', () => {
     expect(component.getStatColor(10)).toBe('#95a5a6');
   });
 
-  it('goBack should call location.back', () => {
+  it('goBack should call facade.goBack which calls location.back', () => {
     const loc = TestBed.inject(Location) as any;
     component.goBack();
     expect(loc.back).toHaveBeenCalled();
