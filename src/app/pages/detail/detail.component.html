@@ -1,119 +1,90 @@
-<div class="detail-container" *ngIf="!isLoading; else loading">
-  <button class="back-btn" (click)="goBack()">← Back</button>
-
-  <div *ngIf="pokemon" class="pokemon-detail">
-    <div class="detail-header">
-      <img [src]="pokemon.imageUrl" [alt]="pokemon.name" class="pokemon-image">
-      <div class="header-info">
-        <h1>{{ pokemon.name }}</h1>
-        <p class="pokemon-id">#{{ pokemon.id }}</p>
-        <div class="pokemon-types">
-          <span *ngFor="let type of pokemon.type" class="type-badge" [ngClass]="'type-' + type.toLowerCase()">
-            {{ type }}
-          </span>
-        </div>
-      </div>
-    </div>
-
-    <div class="description-section">
-      <h2>Description</h2>
-      <p>{{ pokemon.description }}</p>
-    </div>
-
-    <div class="info-grid">
-      <div class="info-card">
-        <span class="info-label">Height</span>
-        <span class="info-value">{{ pokemon.height }} dm</span>
-      </div>
-      <div class="info-card">
-        <span class="info-label">Weight</span>
-        <span class="info-value">{{ pokemon.weight }} hg</span>
-      </div>
-    </div>
-
-    <div class="stats-section">
-      <h2>Stats</h2>
-      <div class="stats-grid">
-        <div class="stat-item">
-          <div class="stat-header">
-            <span class="stat-name">HP</span>
-            <span class="stat-value">{{ pokemon.hp }}</span>
-          </div>
-          <div class="stat-bar">
-            <div class="stat-fill" [style.width.%]="(pokemon.hp / 150) * 100" [style.background-color]="getStatColor(pokemon.hp)"></div>
-          </div>
-        </div>
-
-        <div class="stat-item">
-          <div class="stat-header">
-            <span class="stat-name">Attack</span>
-            <span class="stat-value">{{ pokemon.attack }}</span>
-          </div>
-          <div class="stat-bar">
-            <div class="stat-fill" [style.width.%]="(pokemon.attack / 150) * 100" [style.background-color]="getStatColor(pokemon.attack)"></div>
-          </div>
-        </div>
-
-        <div class="stat-item">
-          <div class="stat-header">
-            <span class="stat-name">Defense</span>
-            <span class="stat-value">{{ pokemon.defense }}</span>
-          </div>
-          <div class="stat-bar">
-            <div class="stat-fill" [style.width.%]="(pokemon.defense / 150) * 100" [style.background-color]="getStatColor(pokemon.defense)"></div>
-          </div>
-        </div>
-
-        <div class="stat-item">
-          <div class="stat-header">
-            <span class="stat-name">Sp. Atk</span>
-            <span class="stat-value">{{ pokemon.spAtk }}</span>
-          </div>
-          <div class="stat-bar">
-            <div class="stat-fill" [style.width.%]="(pokemon.spAtk / 150) * 100" [style.background-color]="getStatColor(pokemon.spAtk)"></div>
-          </div>
-        </div>
-
-        <div class="stat-item">
-          <div class="stat-header">
-            <span class="stat-name">Sp. Def</span>
-            <span class="stat-value">{{ pokemon.spDef }}</span>
-          </div>
-          <div class="stat-bar">
-            <div class="stat-fill" [style.width.%]="(pokemon.spDef / 150) * 100" [style.background-color]="getStatColor(pokemon.spDef)"></div>
-          </div>
-        </div>
-
-        <div class="stat-item">
-          <div class="stat-header">
-            <span class="stat-name">Speed</span>
-            <span class="stat-value">{{ pokemon.speed }}</span>
-          </div>
-          <div class="stat-bar">
-            <div class="stat-fill" [style.width.%]="(pokemon.speed / 150) * 100" [style.background-color]="getStatColor(pokemon.speed)"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="total-stats">
-        <span class="total-label">Total</span>
-        <span class="total-value">{{ getTotalStats() }}</span>
-      </div>
-    </div>
-    
-    <!-- Evolution Chain -->
-    <app-evolution [pokemonId]="pokemon.id"></app-evolution>
-  </div>
-
-  <div *ngIf="!pokemon" class="not-found">
-    <h2>Pokémon not found</h2>
-    <p>The requested Pokémon does not exist in our database.</p>
-  </div>
-</div>
-
-<ng-template #loading>
+@if (isLoading()) {
   <div class="loading">
     <div class="spinner"></div>
     <p>Loading...</p>
   </div>
-</ng-template>
+} @else {
+  <div class="detail-container">
+    <button class="back-btn" (click)="goBack()">← Back</button>
+
+    @if (pokemon(); as pkmn) {
+      <div class="pokemon-detail">
+        <div class="detail-header">
+          <img [src]="pkmn.imageUrl" [alt]="pkmn.name" class="pokemon-image">
+          <div class="header-info">
+            <h1>{{ pkmn.name }}</h1>
+            <p class="pokemon-id">#{{ pkmn.id }}</p>
+            <div class="pokemon-types">
+              @for (type of pkmn.type; track type) {
+                <span class="type-badge type-{{ type.toLowerCase() }}">
+                  {{ type }}
+                </span>
+              }
+            </div>
+          </div>
+        </div>
+
+        <div class="description-section">
+          <h2>Description</h2>
+          <p>{{ pkmn.description }}</p>
+        </div>
+
+        <div class="info-grid">
+          <div class="info-card">
+            <span class="info-label">Height</span>
+            <span class="info-value">{{ pkmn.height }} dm</span>
+          </div>
+          <div class="info-card">
+            <span class="info-label">Weight</span>
+            <span class="info-value">{{ pkmn.weight }} hg</span>
+          </div>
+        </div>
+
+        <div class="stats-section">
+          <h2>Stats</h2>
+          <div class="stats-grid">
+            @for (stat of stats(); track stat.name) {
+              <div class="stat-item">
+                <div class="stat-header">
+                  <span class="stat-name">{{ stat.name }}</span>
+                  <span class="stat-value">{{ stat.value }}</span>
+                </div>
+                <div class="stat-bar">
+                  <div
+                    class="stat-fill"
+                    [style.width.%]="getStatPercentage(stat.value, stat.maxValue)"
+                    [style.background-color]="getStatColor(stat.value)">
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+
+          <div class="total-stats">
+            <span class="total-label">Total</span>
+            <span class="total-value">{{ totalStats() }}</span>
+          </div>
+        </div>
+
+        <!-- Evolution Chain with @defer -->
+        @defer (on viewport) {
+          <app-evolution [pokemonId]="pkmn.id"></app-evolution>
+        } @placeholder {
+          <div class="evolution-placeholder">
+            <p>Scroll to load evolution chain...</p>
+          </div>
+        } @loading {
+          <div class="evolution-loading">
+            <div class="spinner-small"></div>
+            <p>Loading evolution...</p>
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="not-found">
+        <h2>Pokémon not found</h2>
+        <p>The requested Pokémon does not exist in our database.</p>
+      </div>
+    }
+  </div>
+}

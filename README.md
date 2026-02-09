@@ -143,10 +143,8 @@ The application uses hardcoded Pokémon data to demonstrate functionality. The s
 ## Future Enhancements
 
 - Integration with PokéAPI for real data
-- Pokémon comparison feature
 - Favorites/bookmark system
 - Advanced filtering options
-- Pokémon evolution chains
 - Move information
 - Ability details
 

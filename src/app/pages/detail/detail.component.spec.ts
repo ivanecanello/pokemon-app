@@ -42,9 +42,13 @@ describe('DetailComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should load pokemon and compute total stats', () => {
-    expect(component.pokemon).toBeTruthy();
-    const total = component.getTotalStats();
+  it('should load pokemon and compute total stats', async () => {
+    // Wait for resource to load
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    expect(component.pokemon()).toBeTruthy();
+    const total = component.totalStats();
     expect(total).toBe(mockPokemon.hp + mockPokemon.attack + mockPokemon.defense + mockPokemon.spAtk + mockPokemon.spDef + mockPokemon.speed);
   });
 

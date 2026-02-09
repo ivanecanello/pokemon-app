@@ -24,7 +24,7 @@ export class PokemonService {
   /**
    * Get a Pokémon by ID
    */
-  getPokemonById(id: number): Observable<Pokemon | undefined> {
+  getPokemonById(id: number | undefined): Observable<Pokemon | undefined> {
     return of(this.pokemonData.find(p => p.id === id));
   }
 
