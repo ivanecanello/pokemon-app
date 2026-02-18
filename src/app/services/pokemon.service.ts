@@ -1,9 +1,8 @@
-import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { Pokemon } from '../models/pokemon.model';
-import { POKEMON_DATA } from '../constants/pokemon.constants';
-import { EVOLUTION_CHAINS } from '../constants/pokemon.constants';
+import {Injectable} from '@angular/core';
+import {delay, Observable, of} from 'rxjs';
+import {Pokemon} from '../models/pokemon.model';
+import {EVOLUTION_CHAINS, POKEMON_DATA} from '../constants/pokemon.constants';
+import {map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +10,7 @@ import { EVOLUTION_CHAINS } from '../constants/pokemon.constants';
 export class PokemonService {
   private pokemonData: Pokemon[] = POKEMON_DATA;
   private selectedForCompare: number[] = [];
+  private poke: any;
 
   constructor() { }
 
@@ -44,7 +44,8 @@ export class PokemonService {
    */
   filterPokemon(filters: { type?: string; name?: string }): Observable<Pokemon[]> {
     return of(this.pokemonData).pipe(
-      map(pokemon => 
+      delay(1000),
+      map(pokemon =>
         pokemon.filter(p => {
           const matchesType = !filters.type || p.type.includes(filters.type);
           const matchesName = !filters.name || p.name.toLowerCase().includes(filters.name.toLowerCase());

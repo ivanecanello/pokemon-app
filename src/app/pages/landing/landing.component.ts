@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { Pokemon } from '../../models/pokemon.model';
-import { PokemonService } from '../../services/pokemon.service';
+import {Component, computed, OnInit} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {RouterModule} from '@angular/router';
+import {Pokemon} from '../../models/pokemon.model';
+import {PokemonService} from '../../services/pokemon.service';
+import {debounceTime, distinctUntilChanged, tap} from "rxjs";
 
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, ReactiveFormsModule],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.css'
 })
@@ -17,11 +18,10 @@ export class LandingComponent implements OnInit {
   filteredPokemon: Pokemon[] = [];
   paginatedPokemon: Pokemon[] = [];
   selectedType: string = '';
-  searchName: string = '';
+  searchName = new FormControl('')
   minHp: number = 0;
   maxSpeed: number = 150;
-  types: string[] = [];
-  
+
   // Pagination
   currentPage: number = 1;
   itemsPerPage: number = 10;
@@ -31,7 +31,12 @@ export class LandingComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadPokemon();
-    this.extractTypes();
+    this.searchName.valueChanges
+      .pipe(
+        debounceTime(600),
+        distinctUntilChanged(),
+        tap(() => this.applyFilters())
+      ).subscribe();
   }
 
   /**
@@ -48,13 +53,14 @@ export class LandingComponent implements OnInit {
   /**
    * Extract unique types from Pokémon data
    */
-  private extractTypes(): void {
-    const allTypes = new Set<string>();
-    this.pokemon.forEach(p => {
-      p.type.forEach(t => allTypes.add(t));
-    });
-    this.types = Array.from(allTypes).sort();
-  }
+  types = computed(() => {
+      const allTypes = new Set<string>();
+      this.pokemon.forEach(p => {
+        p.type.forEach(t => allTypes.add(t));
+      });
+      return Array.from(allTypes).sort()
+    }
+  )
 
   /**
    * Apply filters to the Pokémon list
@@ -62,7 +68,7 @@ export class LandingComponent implements OnInit {
   applyFilters(): void {
     const filters = {
       type: this.selectedType || undefined,
-      name: this.searchName || undefined
+      name: this.searchName.value || undefined
     };
 
     this.pokemonService.filterPokemon(filters).subscribe(data => {
@@ -108,7 +114,7 @@ export class LandingComponent implements OnInit {
    */
   clearFilters(): void {
     this.selectedType = '';
-    this.searchName = '';
+    this.searchName.setValue('');
     this.minHp = 0;
     this.maxSpeed = 150;
     this.applyFilters();
